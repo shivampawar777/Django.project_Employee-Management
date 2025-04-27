@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Home Page</title>
+    {% include 'bootstrap.html' %}
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="container">
+    <div class="row my-3">
+    <div class="col-sm-6 offset-sm-3">
+        <h1 class="mt-4">Welcome to <i>DemandData</i>!</h1>
+        <h6 class="text-danger fw-bold">Please, Login first.</h6>
+        <hr>
+        <form action=" " method="POST" novalidate class="shadow p-5">
+        {% csrf_token %}
+            {% for fm in form %}
+                <div class="form-group">
+                    {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+                    <br>
+                </div>
+            {% endfor %}
+            <input type="submit" class="btn btn-primary mt-4" value="Login">
+            <br>
+            <div class="text-center text-primary fw-bold">
+	            <small><a href="/change-password/">Change Password?</a></small>
+            </div>
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <p class="alert alert-danger my-3">{{error}}</p>
+                {% endfor %}
+            {% endif %}
+        </form>
+    </div>
+    </div>
+    </div>
+</body>
+</html>
