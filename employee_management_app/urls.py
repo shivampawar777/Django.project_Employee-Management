@@ -3,13 +3,14 @@ from .views import *
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
-from .forms import LoginForm
+from .forms import LoginForm, ChangePasswordForm
 
 
 urlpatterns = [
     path('', start),
     path('accounts/login/', auth_views.LoginView.as_view(template_name='login.html', authentication_form=LoginForm)),
-    path('change-password/', change_password),
+    path('change-password/', auth_views.PasswordChangeView.as_view(template_name='changepassword.html', form_class=ChangePasswordForm, success_url='/change-password-done/')),
+    path('change-password-done/', auth_views.PasswordChangeDoneView.as_view(template_name='changepassword-done.html')),
     path('logout/', logout_view),
     path('home/',home),
     path('add-emp/',add_emp),
